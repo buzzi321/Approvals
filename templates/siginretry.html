@@ -1,0 +1,31 @@
+<script type="text/javascript">
+    $(function(){
+        $('#btnSignIn').click(function(evt){
+            evt.preventDefault();
+            $.ajax({
+                url: '/signin',
+                type:'POST',
+                success:function(response){
+                    console.log(response);
+                },
+                error:function(error){
+                    console.log(error);
+                }
+            })
+        })
+    })
+
+</script>
+
+
+<div class="inner cover">
+    <form class="form-signin" action="/verifyuser" method="post"  >
+        <h2 class="email">Please Retry Again, Wrong Username/Password</h2>
+        <label for="email" class="sr-only">Your Email address</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required="" autofocus="">
+        <label for="pass" class="sr-only">New Password</label>
+        <input type="password" id="pass" class="form-control" name="pass" placeholder="Password" required="">
+
+        <button id="btnSignIn" class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    </form>
+</div>

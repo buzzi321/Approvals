@@ -1,0 +1,38 @@
+<div id="inputContainer" class="inputDemo" ng-controller="formCtrl" ng-cloak>
+	<md-content layout-padding>
+		<form name="approvalForm">
+			<md-input-container class="md-block">
+				<label>First Name</label>
+				<input required name="firstName" ng-model="project.firstName">
+				<div ng-messages="approvalForm.firstName.$error">
+					<div ng-message="required">First Name is required.</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>Last Name</label>
+				<input required name="lastName" ng-model="project.lastName">
+				<div ng-messages="approvalForm.lastName.$error">
+					<div ng-message="required">Last Name is required.</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>Email</label>
+				<input required type="email" name="userEmail" ng-model="project.userEmail"
+					   minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+				<div ng-messages="approvalForm.userEmail.$error" role="alert">
+					<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+						Your email must be between 10 and 100 characters long and should be a valid email address.
+					</div>
+				</div>
+			</md-input-container>
+			<md-input-container class="md-block">
+				<label>Comments</label>
+				<input md-maxlength="300" required name="comments" ng-model="project.comments">
+				<div ng-messages="approvalForm.comments.$error">
+					<div ng-message="required">This is required.</div>
+					<div ng-message="md-maxlength">The comments has to be less than 300 characters long.</div>
+				</div>
+			</md-input-container>
+		</form>
+	</md-content>
+</div>

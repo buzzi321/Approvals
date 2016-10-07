@@ -1,0 +1,38 @@
+<div class="widget-box" id="recent-box" ng-controller="ApprovalsController">
+	<div class="widget-header header-color-blue">
+		<div class="row">
+			<div class="col-sm-6">
+				<h4 class="bigger lighter">
+					<i class="glyphicon glyphicon-align-justify"></i>&nbsp;
+					Approvals
+				</h4>
+			</div>
+			<div class="col-sm-3">
+				<!--<button ng-click="addNewClicked=!addNewClicked;" class="btn btn-sm btn-danger header-elements-margin"><i class="glyphicon  glyphicon-plus"></i>&nbsp;Add New Request</button> -->
+			</div>
+			<div class="col-sm-3">
+
+				<input type="text" ng-model="filterTask" class="form-control search header-elements-margin" placeholder="Filter Requests">
+
+			</div>
+		</div></div>
+	<div class="widget-body ">
+		<form ng-init="addNewClicked=false; " ng-if="addNewClicked" id="newTaskForm" class="add-task">
+			<div class="form-actions">
+				<div class="input-group">
+					<input type="text" class="form-control" name="comment" ng-model="taskInput" placeholder="Add New Task" ng-focus="addNewClicked">
+					<div class="input-group-btn">
+						<switcher class="styled"
+								  ng-model="style"
+								  ng-disabled="isDisabled"
+								  ng-change="onChange(newValue, oldValue)"
+								  true-label="<img src='img/thumb_approve.png'>"
+								  false-label="<img src='img/thumb_reject.png'>">
+						</switcher>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>

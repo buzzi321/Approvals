@@ -1,0 +1,64 @@
+<div ng-controller="signupCtrl" layout="column" ng-cloak>
+
+    <md-content layout-padding>
+        <form name="signForm" ng-submit="signUp(signupModel)">
+
+            <div layout="row">
+                <md-input-container flex="50">
+                    <label>First Name</label>
+                    <input required name="firstName" ng-model="signupModel.firstName">
+                    <div ng-messages="signForm.firstName.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container flex="50">
+                    <label>Last Name</label>
+                    <input required name="lastName" ng-model="signupModel.lastName">
+                    <div ng-messages="signForm.lastName.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+            </div>
+                <md-input-container flex="50">
+                    <label>Role</label>
+                    <md-select name="role" ng-model="signupModel.role" required>
+                        <md-option value="app">Approver</md-option>
+                        <md-option value="web">Requester</md-option>
+                    </md-select>
+                </md-input-container>
+
+
+            <md-input-container class="md-block">
+                <label>Email</label>
+                <input required type="email" name="signupEmail" ng-model="signupModel.signupEmail"
+                       minlength="8" maxlength="45" ng-pattern="/^.+@.+\..+$/" />
+
+                <div ng-messages="signForm.signupEmail.$error" role="alert">
+                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                        Your email must be between 8 and 45 characters long and look like an e-mail address.
+                    </div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <label>Password</label>
+                <input required type="password" name="password" ng-model="signupModel.password"
+                       minlength="8" maxlength="15"/>
+                <div ng-messages="signForm.userPass.$error" role="alert">
+                    <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                        Your password must be between 8 and 15 characters.
+                    </div>
+                </div>
+            </md-input-container>
+
+
+            <div>
+                <md-button>Submit</md-button>
+            </div>
+
+
+        </form>
+    </md-content>
+
+</div>

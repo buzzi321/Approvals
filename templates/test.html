@@ -1,0 +1,101 @@
+<html ng-app="myApprovalsApp">
+<head>
+    <link rel="stylesheet" type="text/css" href="../style/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/myApprovals.css"/>
+    <link rel="stylesheet" type="text/css" href="../style/login.css"/>
+
+    <link href="//cdn.rawgit.com/indrimuska/angular-switcher/master/dist/angular-switcher.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../node_modules/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="../style/css/materialdesignicons.css" media="all" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700" rel="stylesheet" type="text/css">
+
+</head>
+<body ng-controller="ApprovalsController as AppCon">
+
+<div class="navbar navbar-default" id="navbar">
+    <div class="container" id="navbar-container">
+
+
+    </div>
+</div>
+<div class="row">
+    <div class="container">
+
+        <div class="col-sm-9">
+
+            <md-tabs class="md-primary" md-autoselect="false" md-no-pagination="false" md-center-tabs="false">
+                <md-tab label="Home" ng-click="AppCon.go('/Home')" md-active="AppCon.state == '/Home'"></md-tab>
+                <md-tab label="New Requests" md-on-select="AppCon.go('/NR')" md-active="AppCon.state == '/NR'"></md-tab>
+                <md-tab label="Approvals" md-on-select="AppCon.go('/App')" md-active="AppCon.state == '/App'"></md-tab>
+                <md-tab label="Login" md-on-select="AppCon.go('/Login')" md-active="AppCon.state == '/Login'"></md-tab>
+                <md-tab label="Register" md-on-select="AppCon.go('/Register')" md-active="AppCon.state == '/Register'"></md-tab>
+            </md-tabs>
+
+            <div ng-controller="signupCtrl" layout="column" ng-cloak>
+
+                <md-content layout-padding>
+                    <form name="signForm">
+
+                        <div layout="row">
+                            <md-input-container flex="50">
+                                <label>First Name</label>
+                                <input required name="firstName" ng-model="signup.firstName">
+                                <div ng-messages="signForm.firstName.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex="50">
+                                <label>Last Name</label>
+                                <input required name="lastName" ng-model="signup.lastName">
+                                <div ng-messages="signForm.lastName.$error">
+                                    <div ng-message="required">This is required.</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container flex="50">
+                                <label>Role</label>
+                                <md-select name="role" ng-model="project.role" required>
+                                    <md-option value="app">Approver</md-option>
+                                    <md-option value="web">Requester</md-option>
+                                </md-select>
+                            </md-input-container>
+                        </div>
+
+                        <md-input-container class="md-block">
+                            <label>Email</label>
+                            <input required type="email" name="signupEmail" ng-model="project.signupEmail"
+                                   minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+
+                            <div ng-messages="signForm.signupEmail.$error" role="alert">
+                                <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                    Your email must be between 10 and 100 characters long and look like an e-mail address.
+                                </div>
+                            </div>
+                        </md-input-container>
+
+
+                        <div>
+                            <md-button type="submit">Submit</md-button>
+                        </div>
+
+                    </form>
+                </md-content>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
+<script src="https://cdn.rawgit.com/indrimuska/angular-switcher/master/dist/angular-switcher.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="../node_modules/angular-material/angular-material.min.js"></script>
+<script type="text/javascript" src="../app/main.js"></script>
+</body>
+</html>

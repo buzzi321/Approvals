@@ -1,0 +1,50 @@
+<div layout="column" class="loginBox md-whiteframe-17dp" ng-controller="loginCtrl" ng-cloak layout-align="center center"
+     layout-fill="layout-fill">
+
+
+    <md-content layout="column" class="md-padding">
+
+        <form class="mdi-login" name="approvalForm" method="post" action="/signin">
+            <div layout="row">
+            <md-input-container>
+
+                <label>Email</label>
+                <input required type="email" name="userEmail" ng-model="signinModel.userEmail"
+                       minlength="8" maxlength="45" ng-pattern="/^.+@.+\..+$/"/>
+                <div ng-messages="approvalForm.userEmail.$error" role="alert">
+                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                        Your email must be between 8 and 45 characters long and should be a valid
+                        email address.
+                    </div>
+                </div>
+            </md-input-container>
+                </div>
+            <div layout="row">
+            <md-input-container>
+                <label>Password</label>
+                <input required type="password" name="userPass" ng-model="signinModel.userPass"
+                       minlength="8" maxlength="15"/>
+                <div ng-messages="approvalForm.userPass.$error" role="alert">
+                    <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                        Your password must be between 8 and 15 characters.
+                    </div>
+                </div>
+            </md-input-container>
+</div>
+            <div layout="row" layout-align="center center" style="padding-top:20px;">
+                <md-button class="md-fab md-primary" aria-label="Use Android" id="signin">
+                    <md-icon md-svg-src="./img/login-square-arrow-button-outline.svg"></md-icon>
+                    <md-tooltip md-direction="left">Login</md-tooltip>
+                </md-button>
+            </div>
+
+        </form>
+
+    </md-content>
+
+
+</div>
+
+
+
+
