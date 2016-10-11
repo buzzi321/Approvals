@@ -1,7 +1,7 @@
-<div ng-controller="signupCtrl" layout="column" ng-cloak>
+
 
     <md-content layout-padding>
-        <form name="signForm" ng-submit="signUp(signupModel)">
+        <form name="signForm">
 
             <div layout="row">
                 <md-input-container flex="50">
@@ -23,8 +23,8 @@
                 <md-input-container flex="50">
                     <label>Role</label>
                     <md-select name="role" ng-model="signupModel.role" required>
-                        <md-option value="app">Approver</md-option>
-                        <md-option value="web">Requester</md-option>
+                        <md-option value="Approver">Approver</md-option>
+                        <md-option value="Requester">Requester</md-option>
                     </md-select>
                 </md-input-container>
 
@@ -54,11 +54,10 @@
 
 
             <div>
-                <md-button>Submit</md-button>
+                <md-button ng-click="register()">Submit</md-button>
             </div>
 
 
         </form>
     </md-content>
 
-</div>

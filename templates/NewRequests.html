@@ -1,38 +1,108 @@
-<div id="inputContainer" class="inputDemo" ng-controller="formCtrl" ng-cloak>
-	<md-content layout-padding>
-		<form name="approvalForm">
-			<md-input-container class="md-block">
-				<label>First Name</label>
-				<input required name="firstName" ng-model="project.firstName">
-				<div ng-messages="approvalForm.firstName.$error">
-					<div ng-message="required">First Name is required.</div>
-				</div>
-			</md-input-container>
-			<md-input-container class="md-block">
-				<label>Last Name</label>
-				<input required name="lastName" ng-model="project.lastName">
-				<div ng-messages="approvalForm.lastName.$error">
-					<div ng-message="required">Last Name is required.</div>
-				</div>
-			</md-input-container>
-			<md-input-container class="md-block">
-				<label>Email</label>
-				<input required type="email" name="userEmail" ng-model="project.userEmail"
-					   minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
-				<div ng-messages="approvalForm.userEmail.$error" role="alert">
-					<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-						Your email must be between 10 and 100 characters long and should be a valid email address.
-					</div>
-				</div>
-			</md-input-container>
-			<md-input-container class="md-block">
-				<label>Comments</label>
-				<input md-maxlength="300" required name="comments" ng-model="project.comments">
-				<div ng-messages="approvalForm.comments.$error">
-					<div ng-message="required">This is required.</div>
-					<div ng-message="md-maxlength">The comments has to be less than 300 characters long.</div>
-				</div>
-			</md-input-container>
-		</form>
-	</md-content>
-</div>
+<md-content layout-padding>
+    <form name="approvalForm" novalidate ng-submit="approvalForm.$valid &&  submitrequest()">
+
+        <div layout-gt-sm="row">
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Organization</label>
+            <input required name="organization" ng-model="newrequest.org">
+            <div ng-messages="approvalForm.org.$error">
+                <div ng-message="required">Organization is required.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>State</label>
+            <md-select ng-model="newrequest.state" required>
+                <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                    {{state.abbrev}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+
+
+        <md-input-container class="md-block" flex-gt-sm>
+            <label>Position Organization Abbr</label>
+            <input required name="posOrgAbbr" ng-model="newrequest.posOrgAbbr">
+            <div ng-messages="approvalForm.posOrgAbbr.$error">
+                <div ng-message="required">First Name is required.</div>
+            </div>
+        </md-input-container>
+        </div>
+        <md-input-container class="md-block">
+            <label>User ID</label>
+            <input name="userid" ng-model="newrequest.userid" type="text" required>
+            <div ng-messages="approvalForm.userid.$error">
+                <div ng-message="required">User ID is required.</div>
+            </div>
+        </md-input-container>
+
+
+        <md-checkbox ng-model="newrequest.enabled" aria-label="Enabled">Enabled?
+        </md-checkbox>
+
+        <div layout-gt-sm="row">
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>First Name</label>
+                <input required name="firstName" ng-model="newrequest.firstName">
+                <div ng-messages="approvalForm.firstName.$error">
+                    <div ng-message="required">First Name is required.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Middle Initial</label>
+                <input required name="middleI" ng-model="newrequest.middleI">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Last Name</label>
+                <input required name="lastName" ng-model="newrequest.lastName">
+                <div ng-messages="approvalForm.lastName.$error">
+                    <div ng-message="required">Last Name is required.</div>
+                </div>
+            </md-input-container>
+
+
+
+
+        </div>
+
+        <md-input-container class="md-block">
+            <label>Employee Type</label>
+            <md-select name="employeeType" ng-model="newrequest.empType" required>
+                <md-option value="HSP Employee">HSP Employee</md-option>
+                <md-option value="Contractor">Contractor</md-option>
+            </md-select>
+            <div ng-messages="approvalForm.employeeType.$error">
+                <div ng-message="required">Employee Type is required.</div>
+            </div>
+
+        </md-input-container>
+
+
+        </md-input-container>
+        <md-input-container>
+            <label>Roles</label>
+            <md-select ng-model="newrequest.selectedRoles" multiple>
+
+                <md-optgroup label="Roles">
+                    <md-option ng-value="Role" ng-repeat="Role in Roles">{{Role}}</md-option>
+                </md-optgroup>
+                {{newrequest.selectedRoles}}
+            </md-select>
+        </md-input-container>
+
+
+
+
+        <md-input-container class="md-block">
+            <label>Business Justification</label>
+            <textarea md-maxlength="300" rows="5" name="comments" ng-model="newrequest.comments"></textarea>
+        </md-input-container>
+
+        <div>
+            <md-button type="submit">Submit</md-button>
+        </div>
+    </form>
+</md-content>

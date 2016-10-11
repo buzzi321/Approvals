@@ -11,7 +11,7 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700" rel="stylesheet" type="text/css">
 
 </head>
-<body ng-controller="ApprovalsController as AppCon">
+<body >
 
 <div class="navbar navbar-default" id="navbar">
     <div class="container" id="navbar-container">
@@ -22,7 +22,7 @@
 <div class="row">
     <div class="container">
 
-        <div class="col-sm-9">
+        <div class="col-sm-9" ng-controller="ApprovalsController as AppCon">
 
             <md-tabs class="md-primary" md-autoselect="false" md-no-pagination="false" md-center-tabs="false">
                 <md-tab label="Home" ng-click="AppCon.go('/Home')" md-active="AppCon.state == '/Home'"></md-tab>
@@ -46,6 +46,8 @@
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
 <script src="../node_modules/angular-material/angular-material.min.js"></script>
-<script type="text/javascript" src="../app/main.js"></script>
+<script src="../app/scripts/main.js"></script>
+<script src="../app/scripts/UserController.js"></script>
+
 </body>
 </html>

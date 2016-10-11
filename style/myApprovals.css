@@ -67,3 +67,10 @@ font-size: 24px;
 text-shadow: none;
 }
 
+
+/*for Approvals screen*/
+.listdemoBasicUsage md-divider {
+    margin-top: 5px;
+    margin-bottom: 0; }
+
+

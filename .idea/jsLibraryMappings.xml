@@ -2,6 +2,10 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{Approvals node_modules}" />
+    <file url="file://$PROJECT_DIR$/app/scripts/UserController.js" libraries="{angular, angular-animate, angular-route}" />
+    <file url="file://$PROJECT_DIR$/app/scripts/main.js" libraries="{angular}" />
+    <file url="file://$PROJECT_DIR$/templates/index.html" libraries="{angular, angular-animate, angular-route, jquery}" />
+    <file url="PROJECT" libraries="{Approvals node_modules, angular, angular-animate, angular-route, jquery}" />
     <includedPredefinedLibrary name="Node.js Core" />
   </component>
 </project>
