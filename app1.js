@@ -8,8 +8,8 @@ var bcrypt = require('bcrypt-nodejs');
 
 var connection = mysql.createConnection({
     host: 'localhost',
-    user: 'sekhar',
-    password: 'sekhar',
+    user: 'root',
+    password: 'root',
     database: 'mydb'
 });
 
@@ -135,16 +135,15 @@ app.post('/verifyusertest', passport.authenticate('local-login', { successRedire
         res.redirect('/');
     });
 */
-app.get('/verifyusertest', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-        if (err) { return next(err); }
-        if (!user) { return res.redirect('/login'); }
-        req.logIn(user, function(err) {
-            if (err) { return next(err); }
-            return res.redirect('/users/' + user.username);
-        });
+app.post('/verifyusertest', function(req, res, next ){
+    console.log("Entered verifyusertest");
+    passport.authenticate('local-login', function(err, user, info) {
+        if (err) { return next(err) }
+        if (!user) { return res.json( { message: info.message }) }
+        res.json(user);
     })(req, res, next);
 });
+
 
 
 
@@ -182,7 +181,7 @@ passport.use(
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) {
-            console.log(req);
+
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows) {
@@ -225,7 +224,8 @@ passport.use(
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req,username,password, done) { // callback with email and password from our form
-            console.log(username);
+
+            console.log('username', username);
                         connection.query("SELECT * FROM users WHERE email = ?",[username], function(err, rows){
                             console.log(err,rows[0]);
                 if (err)
@@ -240,7 +240,7 @@ passport.use(
                 // if the user is found but the password is wrong
  //               if (!bcrypt.compareSync(password, rows[0].password))
  //                   return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
-                if ((password != rows[0].pass)) {
+                if ((password != rows[0].password)) {
                     console.log('Oops! Wrong password.');
                     return done(null, false, ('Oops! Wrong password.'));
                 }
