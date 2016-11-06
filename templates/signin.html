@@ -1,5 +1,5 @@
-<div layout="column" class="loginBox md-whiteframe-17dp" layout-align="center center"
-     layout-fill="layout-fill">
+<div layout="column" class="loginBox md-whiteframe-17dp" layout-align="right"
+     layout-fill="fill">
 
 
 
@@ -24,7 +24,7 @@
             <md-input-container>
                 <label>Password</label>
                 <input required type="password" name="userPass" ng-model="signinModel.userPass"
-                       minlength="8" maxlength="15"/>
+                       minlength="3" maxlength="15"/>
                 <div ng-messages="approvalForm.userPass.$error" role="alert">
                     <div ng-message-exp="['required', 'minlength', 'maxlength']">
                         Your password must be between 8 and 15 characters.

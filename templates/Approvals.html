@@ -1,27 +1,28 @@
-	<div class="widget-header header-color-blue">
-		<div class="row">
-			<div class="col-sm-6">
-				<h4 class="bigger lighter">
-					Approvals
-				</h4>
-			</div>
-			<div class="col-sm-3">
+<div class="widget-header header-color-blue">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4 class="bigger lighter">
+                Approvals
+            </h4>
+        </div>
+        <div class="col-sm-3">
 
-				<input type="text" ng-model="filterApprovals" class="form-control search header-elements-margin" placeholder="Filter Requests">
+            <input type="text" ng-model="filterApprovals" class="form-control search header-elements-margin"
+                   placeholder="Filter Requests">
 
-			</div>
-		</div></div>
+        </div>
+    </div>
+</div>
+<div flex-gt-sm="150" flex>
+<md-list-item class="md-3-line" ng-repeat="item in ApprovalsInput | filter : filterApprovals" ng-click="null">
+    <div class="md-list-item-text" layout="column">
+        <h3>{{ item.assignedTo }}</h3>
+        <h4>{{ item.empType }}</h4>
+        <p>{{ item.lastName }}</p>
+    </div>
 
-					<md-list-item class="md-3-line" ng-repeat="item in ApprovalsInput | filter : filterApprovals" ng-click="null" >
-						<div class="md-list-item-text" layout="column">
-							<h3>{{ item.assignedTo }}</h3>
-							<h4>{{ item.empType }}</h4>
-							<p>{{ item.lastName }}</p>
-						</div>
-						<img src='img/thumb_approve.png'></img>
-						<md-switch class="md-secondary" ng-model="item.enabled"></md-switch>
-						<img src='img/thumb_reject.png'></img>
-					</md-list-item>
+    <md-switch class="md-secondary" ng-model="item.enabled"></md-switch>
 
+</md-list-item>
 
-
+</div>

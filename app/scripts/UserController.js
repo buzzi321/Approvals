@@ -17,15 +17,15 @@ angular.module('myApprovalsApp').controller('loginCtrl', function ($scope, $http
 
         $scope.loginverify= function(){
             console.log('clicked Login');
-            var logindata = {email: $scope.signinModel.userEmail,pass: $scope.signinModel.userPass};
+            var logindata = {email: $scope.signinModel.userEmail,pass: $scope.signinModel.userPass, error:''};
             console.log('userdata:', logindata);
-            $http.post('/verifyuser', logindata)
+            $http.post('/verifyusertest', logindata)
                 .then(function () {
                     $scope.loggedin = true;
                     $location.path('/Home');
                     $rootScope.email = $scope.signinModel.userEmail;
                         $scope.loginForm = {};
-                    console.log('logged in');
+                    console.log('logged in', logindata);
 
                 })
                 // handle error
@@ -42,7 +42,8 @@ angular.module('myApprovalsApp').controller('loginCtrl', function ($scope, $http
 angular.module('myApprovalsApp').controller('GetApprovalsCtrl',
     ['$scope', '$location','$rootScope','$http',
         function ($scope, $location, $rootScope, $http) {
-            var data = {email: $rootScope.email};
+            //var data = {email: $rootScope.email};
+            var data = {email: 'buzzi321@gmail.com'};
             console.log('Email Sent ', data);
             $http.post('/getApprovals', data)
                 .then(function (response) {
@@ -109,6 +110,7 @@ angular.module('myApprovalsApp').controller('NewRequestController', function ($s
 angular.module('myApprovalsApp').controller('ApprovalsController', function ($scope, $http, $location) {
 
 
+    this.isOpen = false;
     this.state = $location.path();
     this.go = function (path) {
         $location.path(path);
@@ -116,6 +118,34 @@ angular.module('myApprovalsApp').controller('ApprovalsController', function ($sc
 
 
 });
+
+
+angular.module('myApprovalsApp').controller('DynamicFormCtrl', ['$scope', function($scope) {
+
+    $scope.model = {};
+    var form_id = 'test';
+    // we would get this from the meta api
+    $http.get("/getMetaData",form_id )
+        .then(function(response) {
+            $scope.myWelcome = response.data;
+        });
+
+
+    $scope.entity = {
+        name : "Course",
+        fields :
+            [
+                {type: "text", name: "name", label: "Name" , required: true},
+                {type: "text", name: "description", label: "Description" , required: true},
+                {type: "select", name: "teacher_id", label: "Teacher" , endpoint: "/teachers", required: true}
+            ]
+    };
+
+
+
+}]);
+
+
 
 
 
