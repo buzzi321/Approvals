@@ -13,19 +13,44 @@ angular.module('myApprovalsApp').controller('registerCtrl',
         }]);
 
 
-angular.module('myApprovalsApp').controller('loginCtrl', function ($scope, $http,$rootScope, $location) {
+angular.module('myApprovalsApp').controller('loginCtrl', function ($scope, $http,$rootScope, $location, $mdDialog) {
 
         $scope.loginverify= function(){
             console.log('clicked Login');
             var logindata = {email: $scope.signinModel.userEmail,pass: $scope.signinModel.userPass, error:''};
             console.log('userdata:', logindata);
             $http.post('/verifyusertest', logindata)
-                .then(function () {
-                    $scope.loggedin = true;
-                    $location.path('/Home');
-                    $rootScope.email = $scope.signinModel.userEmail;
+                .then(function (response) {
+                    console.log('logged in', response);
+                    var error = response.data.err.message;
+                    if (error.length) {
+                        console.log('error:', error);
+                        $scope.error = true;
+                        $scope.errorMessage = error;
+                        var alert = $mdDialog.alert()
+                            .clickOutsideToClose(true)
+                            .title('Error')
+                            .textContent(error)
+                            .ariaLabel('Left to right demo')
+                            .ok('Ok')
+                            // You can specify either sting with query selector
+                            .openFrom({
+                                top: -50,
+                                width: 30,
+                                height: 80
+                            })
+                            .closeTo({
+                                left: 1500
+                            })
+                        $mdDialog.show(alert);
+
+                    }
+                    else {
+                        $scope.loggedin = true;
+                        $location.path('/Home');
+                        $rootScope.email = $scope.signinModel.userEmail;
                         $scope.loginForm = {};
-                    console.log('logged in', logindata);
+                    }
 
                 })
                 // handle error

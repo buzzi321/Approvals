@@ -138,8 +138,11 @@ app.post('/verifyusertest', passport.authenticate('local-login', { successRedire
 app.post('/verifyusertest', function(req, res, next ){
     console.log("Entered verifyusertest");
     passport.authenticate('local-login', function(err, user, info) {
+        console.log("verifyusertest User", user);
         if (err) { return next(err) }
-        if (!user) { return res.json( { message: info.message }) }
+        if (!user) {
+            console.log("No User");
+            return res.json( { err: info }) }
         res.json(user);
     })(req, res, next);
 });
@@ -242,7 +245,7 @@ passport.use(
  //                   return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
                 if ((password != rows[0].password)) {
                     console.log('Oops! Wrong password.');
-                    return done(null, false, ('Oops! Wrong password.'));
+                    return done(null, false, { message: 'Wrong Password' });
                 }
                 // all is well, return successful user
                 return done(null, rows[0]);

@@ -2,8 +2,8 @@
      layout-fill="fill">
 
 
-
-    <md-content layout="column" class="md-padding">
+    <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
+    <md-content layout="column" class="md-padding"  md-theme="docs-dark">
 
         <form class="mdi-login" name="approvalForm">
             <div layout="row">
@@ -33,12 +33,12 @@
             </md-input-container>
 </div>
             <div layout="row" layout-align="center center" style="padding-top:20px;">
-                <md-button class="md-fab md-primary" aria-label="Use Android" ng-click="loginverify()">
+                <md-button ng-disabled="approvalForm" class="md-fab md-primary" aria-label="Use Android" ng-click="loginverify()">
                     <md-icon md-svg-src="./img/login-square-arrow-button-outline.svg"></md-icon>
                     <md-tooltip md-direction="left">Login</md-tooltip>
                 </md-button>
-            </div>
 
+            </div>
         </form>
 
     </md-content>
