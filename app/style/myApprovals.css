@@ -5,26 +5,16 @@
     margin-top: 5px;
     margin-bottom: 0; }
 
-/*switch code for Approvals screen*/
-/*
- * The bar:
- */
-
-md-switch .md-bar {
-    background-color: #ba0a06; /* set not selected bar color */
+/*For Login Screen*/
+.login_form {
+    width: 380px;
+    margin: 4em auto;
+    padding: 3em 2em 2em 2em;
+    background: #fafafa;
+    border: 1px solid #13afeb;
+    box-shadow: rgba(0,0,0,0.14902) 0px 1px 1px 0px,rgba(0,0,0,0.09804) 0px 1px 2px 0px;
 }
 
-md-switch.md-checked .md-bar {
-    background-color: #2cff1c; /* set selected bar color */
-}
-
-md-switch[disabled] .md-bar {
-    background-color: rgba(51, 51, 51, .15); /* set disabled bar color */
-}
-
-/*
- * The switch:
- */
 
 md-switch .md-thumb {
     color: rgb(158,158,158); /* not selected switch color */
@@ -40,8 +30,6 @@ md-switch[disabled] .md-thumb {
 
 
 /*Fab Menu*/
-
-
 .fabSpeedDialdemoBasicUsage .text-capitalize {
     text-transform: capitalize; }
 

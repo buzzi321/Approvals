@@ -1,16 +1,50 @@
-angular.module('myApprovalsApp').controller('registerCtrl',
-    ['$scope', '$http',
-        function ($scope, $http) {
+angular.module('myApprovalsApp').controller('registerCtrl', function ($scope, $http,$rootScope, $location, $mdDialog) {
 
-            $scope.register= function(){
-                console.log('clicked submit');
-                var userdata = {email: $scope.signupModel.signupEmail,pass: $scope.signupModel.password, firstname:$scope.signupModel.firstName, lastname: $scope.signupModel.lastName, role: $scope.signupModel.role};
-                console.log('userdata:', userdata);
-                $http.post('/signup', userdata)
+    $scope.register= function(){
+        console.log('clicked Login');
+        var registerdata = {email: $scope.signupModel.signupEmail,pass: $scope.signupModel.password, lName:$scope.signupModel.lastName, fName:$scope.signupModel.firstName, role:$scope.signupModel.role};
+        console.log('registerdata:', registerdata);
+        $http.post('/registeruser', registerdata)
+            .then(function (response) {
+                console.log('registered response', response);
 
-            }
+                if ("err" in response.data) {
+                    console.log('error:', response.data.err.message);
 
-        }]);
+                    $scope.error = true;
+                    $scope.errorMessage = response.data.err.message;
+                    var alert = $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Error')
+                        .textContent(response.data.err.message)
+                        .ok('Ok')
+                        // You can specify either sting with query selector
+                        .openFrom({
+                            top: -50,
+                            width: 30,
+                            height: 80
+                        })
+                        .closeTo({
+                            left: 1500
+                        });
+                    $mdDialog.show(alert);
+
+                }
+                else {
+                    $location.path('/Login');
+                    //$scope.signupModel = {};
+                }
+
+            })
+            // handle error
+            .catch(function () {
+                $scope.error = true;
+                $scope.errorMessage = "System Error";
+                $scope.signupModel = {};
+            });
+
+    }
+});
 
 
 angular.module('myApprovalsApp').controller('loginCtrl', function ($scope, $http,$rootScope, $location, $mdDialog) {
@@ -19,19 +53,18 @@ angular.module('myApprovalsApp').controller('loginCtrl', function ($scope, $http
             console.log('clicked Login');
             var logindata = {email: $scope.signinModel.userEmail,pass: $scope.signinModel.userPass, error:''};
             console.log('userdata:', logindata);
-            $http.post('/verifyusertest', logindata)
+            $http.post('/verifyuser', logindata)
                 .then(function (response) {
                     console.log('logged in', response);
-                    var error = response.data.err.message;
-                    if (error.length) {
-                        console.log('error:', error);
+
+                    if ("err" in response.data) {
+                        console.log('error:', response.data.err.message);
                         $scope.error = true;
-                        $scope.errorMessage = error;
+                        $scope.errorMessage = response.data.err.message;
                         var alert = $mdDialog.alert()
                             .clickOutsideToClose(true)
                             .title('Error')
-                            .textContent(error)
-                            .ariaLabel('Left to right demo')
+                            .textContent(response.data.err.message)
                             .ok('Ok')
                             // You can specify either sting with query selector
                             .openFrom({
@@ -41,7 +74,7 @@ angular.module('myApprovalsApp').controller('loginCtrl', function ($scope, $http
                             })
                             .closeTo({
                                 left: 1500
-                            })
+                            });
                         $mdDialog.show(alert);
 
                     }
@@ -56,7 +89,7 @@ angular.module('myApprovalsApp').controller('loginCtrl', function ($scope, $http
                 // handle error
                 .catch(function () {
                     $scope.error = true;
-                    $scope.errorMessage = "Invalid username and/or password";
+                    $scope.errorMessage = "System Error";
                     $scope.loginForm = {};
                 });
 

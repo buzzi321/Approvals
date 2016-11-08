@@ -11,7 +11,7 @@ myApprovalsApp.config(function ($routeProvider) {
     $routeProvider.when("/Login", {templateUrl: "templates/signin.html",controller:"loginCtrl" });
     $routeProvider.when("/Register", {templateUrl: "templates/signup.html",controller:"registerCtrl" });
     $routeProvider.when("/Test", {templateUrl: "templates/test.html",controller:"DynamicFormCtrl" });
-    $routeProvider.otherwise({redirectTo: "/Home"});
+    $routeProvider.otherwise({redirectTo: "/Login"});
 
 
 });

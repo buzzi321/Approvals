@@ -32,11 +32,6 @@ module.exports = function (passport) {
         });
     });
 
-    // =========================================================================
-// LOCAL SIGNUP ============================================================
-// =========================================================================
-// we are using named strategies since we have one for login and one for signup
-// by default, if there was no name, it would just be called 'local'
 
     passport.use(
         'local-signup',
@@ -47,26 +42,35 @@ module.exports = function (passport) {
                 passReqToCallback: true // allows us to pass back the entire request to the callback
             },
             function (req, username, password, done) {
+                console.log('Entered local-signup');
+                console.log(req.body);
 
                 // find a user whose email is the same as the forms email
                 // we are checking to see if the user trying to login already exists
-                connection.query("SELECT * FROM users WHERE username = ?", [username], function (err, rows) {
+
+
+
+                connection.query("SELECT * FROM users WHERE email = ?", [username], function (err, rows) {
                     if (err)
                         return done(err);
                     if (rows.length) {
-                        return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                        return done(null, false, {message: 'User already exists'});
                     } else {
                         // if there is no user with that username
                         // create the user
                         var newUserMysql = {
                             username: username,
-                            password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
+                            //password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
+                            password:password,
+                            role: req.body.email,
+                            lname : req.body.lName,
+                            fname : req.body.fName
                         };
 
-                        var insertQuery = "INSERT INTO users ( username, password ) values (?,?)";
+                        var insertQuery = "INSERT INTO users ( username, password, role, firstname, lastname ) values (?,?,?,?,?)";
 
-                        connection.query(insertQuery, [newUserMysql.username, newUserMysql.password], function (err, rows) {
-                            newUserMysql.id = rows.insertId;
+                        connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, newUserMysql.role, newUserMysql.fname, newUserMysql.lname], function (err, rows) {
+
 
                             return done(null, newUserMysql);
                         });
@@ -75,11 +79,6 @@ module.exports = function (passport) {
             })
     );
 
-// =========================================================================
-// LOCAL LOGIN =============================================================
-// =========================================================================
-// we are using named strategies since we have one for login and one for signup
-// by default, if there was no name, it would just be called 'local'
 
     passport.use(
         'local-login',
@@ -105,7 +104,9 @@ module.exports = function (passport) {
                     // if the user is found but the password is wrong
                     //               if (!bcrypt.compareSync(password, rows[0].password))
                     //                   return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
-                    if ((password != rows[0].password)) {
+                    console.log('returned password:', rows[0].pass);
+                    console.log('entered password:',password);
+                    if ((password != rows[0].pass)) {
                         console.log('Wrong password.');
                         return done(null, false, {message: 'Wrong Password'});
                     }
