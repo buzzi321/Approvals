@@ -22,14 +22,12 @@ module.exports = function (passport) {
     // used to serialize the user for the session
 
     passport.serializeUser(function (user, done) {
-        done(null, user.user_id);
+        done(null, user.email);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function (id, done) {
-        connection.query("SELECT * FROM users WHERE email = ? ", [username], function (err, rows) {
-            done(err, rows[0].user);
-        });
+    passport.deserializeUser(function(obj, done) {
+        done(null, false);  // invalidates the existing login session.
     });
 
 
@@ -104,9 +102,9 @@ module.exports = function (passport) {
                     // if the user is found but the password is wrong
                     //               if (!bcrypt.compareSync(password, rows[0].password))
                     //                   return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
-                    console.log('returned password:', rows[0].pass);
+                    console.log('returned password:', rows[0].password);
                     console.log('entered password:',password);
-                    if ((password != rows[0].pass)) {
+                    if ((password != rows[0].password)) {
                         console.log('Wrong password.');
                         return done(null, false, {message: 'Wrong Password'});
                     }

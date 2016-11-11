@@ -5,7 +5,7 @@ var myApprovalsApp = angular.module('myApprovalsApp', ['ngRoute', 'ngMaterial', 
 
 
 myApprovalsApp.config(function ($routeProvider) {
-    $routeProvider.when("/Home", {templateUrl: "templates/Home.html"});
+    $routeProvider.when("/Home", {templateUrl: "templates/Home.html",controller:"NewRequestController"});
     $routeProvider.when("/NR", {templateUrl: "templates/NewRequests.html",controller:"NewRequestController" });
     $routeProvider.when("/App", {templateUrl: "templates/Approvals.html",controller:"GetApprovalsCtrl" });
     $routeProvider.when("/Login", {templateUrl: "templates/signin.html",controller:"loginCtrl" });
@@ -18,17 +18,7 @@ myApprovalsApp.config(function ($routeProvider) {
 
 
 
-function DialogController($scope, $mdDialog) {
-    $scope.hide = function() {
-        $mdDialog.hide();
-    };
-    $scope.cancel = function() {
-        $mdDialog.cancel();
-    };
-    $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
-    };
-}
+
 
 myApprovalsApp.directive('userAvatar', function() {
     return {
