@@ -44,9 +44,8 @@ app.use(passport.session()); // persistent login sessions
 
 // require routes
 var routes = require('./routes.js')(app, passport);
-
-
-//routes
+// routes
+//app.use('/user/', routes);
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '../app', 'index.html'));
 });

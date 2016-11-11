@@ -62,16 +62,16 @@ module.exports = function (passport) {
                             username: username,
                             //password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
                             password:password,
-                            role: req.body.email,
-                            lname : req.body.lName,
-                            fname : req.body.fName
+                            role: req.email,
+                            lname : req.lName,
+                            fname : req.fName
                         };
 
-                        var insertQuery = "INSERT INTO users ( username, password, role, firstname, lastname ) values (?,?,?,?,?)";
+                        var insertQuery = "INSERT INTO users ( email, pass, role, firstname, lastname ) values (?,?,?,?,?)";
 
                         connection.query(insertQuery, [newUserMysql.username, newUserMysql.password, newUserMysql.role, newUserMysql.fname, newUserMysql.lname], function (err, rows) {
-
-
+                            console.log('newUserMysql:',newUserMysql);
+                            console.log('registered err', err);
                             return done(null, newUserMysql);
                         });
                     }
@@ -90,7 +90,7 @@ module.exports = function (passport) {
             },
             function (req, username, password, done) { // callback with email and password from our form
 
-                console.log('username', username);
+                console.log('Entered local-login----username:', username);
                 connection.query("SELECT * FROM users WHERE email = ?", [username], function (err, rows) {
                     console.log(err, rows[0]);
                     if (err)

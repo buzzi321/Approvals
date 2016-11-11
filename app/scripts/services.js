@@ -1,6 +1,6 @@
 angular.module('myApprovalsApp').factory('AuthService',
-    ['$q', '$timeout', '$http', '$cookies',
-        function ($q, $timeout, $http, $cookies) {
+    ['$q', '$timeout', '$http',
+        function ($q, $timeout, $http) {
 
             // create user variable
             var user = null;
@@ -39,34 +39,33 @@ angular.module('myApprovalsApp').factory('AuthService',
                     });
             }
 
-            function login(username, password) {
+            function login(logindata) {
 
                 // create a new instance of deferred
                 var deferred = $q.defer();
-
+                console.log('Entered AuthService.login');
+                console.log('logindata:',logindata);
 
                 // send a post request to the server
-                $http.post('/user/login',
-                    {username: username, password: password})
+                $http.post('/verifyuser',
+                    logindata)
                     // handle success
                     .success(function (data, status) {
+                        console.log('AuthService Success', data,status);
                         if (status === 200 && data.status) {
                             user = true;
-                            //profile = data.profile;
-                            //$rootScope.profile = data.profile;
-                            $cookies.put("profile", data.profile);
-                            //$rootScope.username = username;
-                            $cookies.put("username", username);
-                            deferred.resolve();
+
+                            deferred.resolve(data);
                         } else {
                             user = false;
-                            deferred.reject();
+                            deferred.resolve(data);
                         }
                     })
                     // handle error
                     .error(function (data) {
+                        console.log('AuthService Error', data);
                         user = false;
-                        deferred.reject();
+                        deferred.resolve(data);
                     });
 
                 // return promise object
@@ -86,8 +85,8 @@ angular.module('myApprovalsApp').factory('AuthService',
                 $http.get('/user/logout')
                     // handle success
                     .success(function (data) {
-                        $cookies.remove("username");
-                        $cookies.remove("profile");
+                        //$cookies.remove("username");
+                        //$cookies.remove("profile");
                         user = false;
                         deferred.resolve();
                     })
@@ -102,25 +101,25 @@ angular.module('myApprovalsApp').factory('AuthService',
 
             }
 
-            function register(username, password, profile) {
+            function register(registerdata) {
 
                 // create a new instance of deferred
                 var deferred = $q.defer();
 
                 // send a post request to the server
-                $http.post('/user/register',
-                    {username: username, password: password, profile: profile})
+                $http.post('/registeruser',
+                    registerdata)
                     // handle success
                     .success(function (data, status) {
                         if (status === 200 && data.status) {
-                            deferred.resolve();
+                            deferred.resolve(data);
                         } else {
-                            deferred.reject();
+                            deferred.resolve(data);
                         }
                     })
                     // handle error
                     .error(function (data) {
-                        deferred.reject();
+                        deferred.resolve(data);
                     });
 
                 // return promise object

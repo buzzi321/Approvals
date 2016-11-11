@@ -16,19 +16,6 @@
 }
 
 
-md-switch .md-thumb {
-    color: rgb(158,158,158); /* not selected switch color */
-}
-
-md-switch.md-checked .md-thumb {
-    background-color: rgb(255,255,255); /* selected switch color */
-}
-
-md-switch[disabled] .md-thumb {
-    background-color: rgb(255,255,255); /* disabled switch color */
-}
-
-
 /*Fab Menu*/
 .fabSpeedDialdemoBasicUsage .text-capitalize {
     text-transform: capitalize; }
@@ -46,6 +33,40 @@ md-switch[disabled] .md-thumb {
     height: 300px;
     margin-left: auto;
     margin-right: auto; }
+
+
+/*Side Nav*/
+.md-content.md-default-theme {
+    background-color: #eee;
+}
+.md-toolbar .md-button.md-default-theme {
+    border-radius: 99%;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+.md-toolbar-tools-bottom {
+    font-size: small;
+}
+.md-toolbar-tools-bottom :last-child {
+    opacity: 0.8;
+}
+
+.md-toolbar:not(.md-hue-1),
+.md-fab {
+    fill: #fff;
+}
+
+.md-sidenav {
+    fill: #737373;
+}
+
+
+.user-avatar {
+    border-radius: 99%;
+}
 
 
 

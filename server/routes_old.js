@@ -6,7 +6,7 @@ module.exports = function(app, passport) {
     app.post('/registeruser', function (req, res, next) {
         console.log("Entered registeruser");
         passport.authenticate('local-signup', function (err, user, info) {
-            console.log("registeruser User info", user);
+            console.log("registeruser User", user);
             if (err) {
                 return next(err)
             }
@@ -22,31 +22,23 @@ module.exports = function(app, passport) {
 
     app.post('/verifyuser', function(req, res, next) {
         console.log("Entered verifyuser");
-            passport.authenticate('local-login', function(err, user, data) {
-            console.log("returned from local-login");
-            console.log("user after passport:",user);
+        passport.authenticate('local-login', function(err, user, info) {
             if (err) {
-                console.log("Error");
                 return next(err);
             }
             if (!user) {
-                console.log("401 Error data:", data);
                 return res.status(401).json({
-                    err: data
+                    err: info
                 });
             }
             req.logIn(user, function(err) {
                 if (err) {
-                    console.log("500 Error data:", data);
                     return res.status(500).json({
-                        err: data
+                        err: info
                     });
                 }
-                console.log("User", user);
                 res.status(200).json({
-
-                    status: 'Login successful!',
-                    data: user
+                    status: 'Login successful!'
                 });
             });
         })(req, res, next);
